@@ -1,19 +1,24 @@
+import './App.css'
+import { TwitterFollowCard } from './TwitterFollowCard'
+
 export function App () {
     return (
-        <article>
-            <header>
-                <img alt="El avatar de Tomás" src="https://unavatar.io/tomasrl18"></img>
-                <div>
-                    <strong>Tomás Raigal López</strong>
-                    <span>@raigal_tomas</span>
-                </div>
-            </header>
-
-            <aside>
-                <button>
-                    Seguir
-                </button>
-            </aside>
-        </article>
+        <>
+            <TwitterFollowCard
+                userName="raigal_tomas"
+                name="Tomás Raigal López"
+                isFollowing={false}
+            ></TwitterFollowCard>
+            <TwitterFollowCard
+                userName="adrian_marin_96"
+                name="Adrián Marín Chorro"
+                isFollowing={false}
+            ></TwitterFollowCard>
+            <TwitterFollowCard
+                userName="FuenSansano"
+                name="Fuensanta Sansano Montoya"
+                isFollowing={false}
+            ></TwitterFollowCard>
+        </>
     )
 }
