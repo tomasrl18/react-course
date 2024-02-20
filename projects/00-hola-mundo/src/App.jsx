@@ -6,6 +6,7 @@ export function App () {
         <section className='App'>
             <TwitterFollowCard
                 userName="raigal_tomas"
+                initialIsFollowing={true}
             >
                 Tomás Raigal López
             </TwitterFollowCard>
@@ -24,8 +25,6 @@ export function App () {
             >
                 Jose Manuel Mármol Alfocea
             </TwitterFollowCard>
-
-            {/* This is how we comment in JSX */}
         </section>
     )
 }
