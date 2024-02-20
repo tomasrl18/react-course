@@ -19,6 +19,13 @@ export function App () {
             >
                 Fuensanta Sansano Montoya
             </TwitterFollowCard>
+            <TwitterFollowCard
+                userName="marmol89"
+            >
+                Jose Manuel Mármol Alfocea
+            </TwitterFollowCard>
+
+            {/* This is how we comment in JSX */}
         </section>
     )
 }
