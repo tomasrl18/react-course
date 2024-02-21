@@ -6,7 +6,7 @@ import { WinnerModal } from './components/WinnerModal.jsx';
 
 import { TURNS } from './constants.js';
 
-import { checkWinner } from './logic/board.js';
+import { checkWinner, checkEndGame } from './logic/board.js';
 
 function App() {
   const [board, setBoard] = useState(Array(9).fill(null));
@@ -20,10 +20,6 @@ function App() {
     setBoard(Array(9).fill(null));
     setTurn(TURNS.X);
     setWinner(null);
-  }
-
-  const checkEndGame = (boardToCheck) => {
-    return boardToCheck.every((cell) => cell !== null);
   }
 
   const updateBoard = (index) => {
