@@ -50,7 +50,6 @@
     background: transparent;
     color: #fff;
     width: 140px;
-
 }
 
 .tw-follow-card-button.is-following:hover {
@@ -58,6 +57,7 @@
     background-color: rgba(255, 0, 0, 0.178);
     color: red;
     border: 1px solid red;
+    opacity: 1;
 }
 
 .tw-follow-card-button.is-following:hover .tw-follow-card-text {
