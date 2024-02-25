@@ -1,4 +1,7 @@
+import confetti from 'canvas-confetti';
+
 import { useState } from 'react'
+
 import './App.css'
 
 const TURNS = {
@@ -53,8 +56,18 @@ function App() {
         return boardToCheck[a];
       }
     }
-    
+
     return null;
+  }
+
+  const resetGame = () => {
+    setBoard(Array(16).fill(null));
+    setTurn(TURNS.RED);
+    setWinner(null);
+  }
+
+  const checkEndGame = (boardToCheck) => {
+    return boardToCheck.every((cell) => cell !== null);
   }
 
   const updateBoard = (index) => {
@@ -69,20 +82,23 @@ function App() {
 
     const newWinner = checkWinner(newBoard);
     if (newWinner) {
+      confetti();
       setWinner(newWinner);
-      alert(`Player ${newWinner} wins!`);
+    } else if (checkEndGame(newBoard)) {
+      setWinner(false);
     }
   }
 
   return (
     <main className='board'>
       <h1>Connect 4</h1>
+      <button onClick={resetGame}>Reset</button>
       <section className='game'>
         {
-          board.map((_, index) => {
+          board.map((cell, index) => {
             return (
               <Square key={index} index={index} updateBoard={updateBoard}>
-                {board[index]}
+                {cell}
               </Square>
             )
           })
@@ -97,6 +113,30 @@ function App() {
           {TURNS.YELLOW}
         </Square>
       </section>
+
+      {
+        winner !== null && (
+          <section className='winner'>
+            <div className='text'>
+              <h2>
+                {
+                  !winner
+                    ? `It's a draw!`
+                    : 'Won:'
+                }
+              </h2>
+
+              <header className='win'>
+                { winner && <Square>{winner}</Square> }
+              </header>
+
+              <footer>
+                <button onClick={resetGame}>Start again</button>
+              </footer>
+            </div>
+          </section>
+        )
+      }
     </main>
   )
 }
