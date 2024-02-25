@@ -9,8 +9,12 @@ const TURNS = {
 const Square = ({ children, isSelected, updateBoard, index }) => {
   const className = `square ${isSelected ? 'is-selected' : ''}`;
 
+  const handleClick = () => {
+    updateBoard()
+  };
+
   return (
-    <div className={className}>
+    <div className={className} onClick={handleClick}>
       {children}
     </div>
   )
@@ -19,7 +23,12 @@ const Square = ({ children, isSelected, updateBoard, index }) => {
 function App() {
   const [board, setBoard] = useState(Array(16).fill(null))
 
-  const [turn, setTurn] = useState(TURNS.X)
+  const [turn, setTurn] = useState(TURNS.RED)
+
+  const updateBoard = () => {
+    const newTurn = turn === TURNS.RED ? TURNS.YELLOW : TURNS.RED;
+    setTurn(newTurn);
+  }
 
   return (
     <main className='board'>
@@ -28,7 +37,7 @@ function App() {
         {
           board.map((_, index) => {
             return (
-              <Square key={index} index={index}>
+              <Square key={index} index={index} updateBoard={updateBoard}>
                 {board[index]}
               </Square>
             )
