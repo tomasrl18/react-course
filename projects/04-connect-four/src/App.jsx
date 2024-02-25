@@ -25,6 +25,9 @@ function App() {
     setBoard(Array(16).fill(null));
     setTurn(TURNS.RED);
     setWinner(null);
+
+    window.localStorage.removeItem('board');
+    window.localStorage.removeItem('turn');
   }
 
   const updateBoard = (index) => {
@@ -36,6 +39,9 @@ function App() {
     
     const newTurn = turn === TURNS.RED ? TURNS.YELLOW : TURNS.RED;
     setTurn(newTurn);
+
+    window.localStorage.setItem('board', JSON.stringify(newBoard));
+    window.localStorage.setItem('turn', newTurn);
 
     const newWinner = checkWinner(newBoard);
     if (newWinner) {
