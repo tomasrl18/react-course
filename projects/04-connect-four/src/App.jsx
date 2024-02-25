@@ -9,7 +9,10 @@ import { checkWinner, checkEndGame } from './logic/board.js'
 import { WinnerModal } from './components/WinnerModal';
 
 function App() {
-  const [board, setBoard] = useState(Array(16).fill(null))
+  const [board, setBoard] = useState(() => {
+    const boardFromLocalStorage = localStorage.getItem('board');
+    return boardFromLocalStorage ? JSON.parse(boardFromLocalStorage) : Array(16).fill(null);
+  })
 
   const [turn, setTurn] = useState(TURNS.RED)
 
