@@ -52,9 +52,9 @@ function App() {
       ) {
         return boardToCheck[a];
       }
-
-      return null;
     }
+    
+    return null;
   }
 
   const updateBoard = (index) => {
