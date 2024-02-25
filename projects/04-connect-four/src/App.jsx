@@ -4,7 +4,9 @@ import { useState } from 'react'
 
 import './App.css'
 import { Square } from './components/Square'
-import { TURNS, WINNER_COMBINATIONS } from './constants.js'
+import { TURNS } from './constants.js'
+import { checkWinner } from './logic/board.js'
+import { WinnerModal } from './components/WinnerModal';
 
 function App() {
   const [board, setBoard] = useState(Array(16).fill(null))
@@ -12,23 +14,6 @@ function App() {
   const [turn, setTurn] = useState(TURNS.RED)
 
   const [winner, setWinner] = useState(null);
-
-  const checkWinner = (boardToCheck) => {
-    for (const combo of WINNER_COMBINATIONS) {
-      const [a, b, c, d] = combo;
-
-      if (
-        boardToCheck[a] &&
-        boardToCheck[a] === boardToCheck[b] &&
-        boardToCheck[a] === boardToCheck[c] &&
-        boardToCheck[a] === boardToCheck[d]
-      ) {
-        return boardToCheck[a];
-      }
-    }
-
-    return null;
-  }
 
   const resetGame = () => {
     setBoard(Array(16).fill(null));
@@ -84,29 +69,7 @@ function App() {
         </Square>
       </section>
 
-      {
-        winner !== null && (
-          <section className='winner'>
-            <div className='text'>
-              <h2>
-                {
-                  !winner
-                    ? `It's a draw!`
-                    : 'Won:'
-                }
-              </h2>
-
-              <header className='win'>
-                { winner && <Square>{winner}</Square> }
-              </header>
-
-              <footer>
-                <button onClick={resetGame}>Start again</button>
-              </footer>
-            </div>
-          </section>
-        )
-      }
+      <WinnerModal resetGame={resetGame} winner={winner}/>
     </main>
   )
 }
