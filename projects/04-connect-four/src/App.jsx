@@ -5,7 +5,7 @@ import { useState } from 'react'
 import './App.css'
 import { Square } from './components/Square'
 import { TURNS } from './constants.js'
-import { checkWinner } from './logic/board.js'
+import { checkWinner, checkEndGame } from './logic/board.js'
 import { WinnerModal } from './components/WinnerModal';
 
 function App() {
@@ -19,10 +19,6 @@ function App() {
     setBoard(Array(16).fill(null));
     setTurn(TURNS.RED);
     setWinner(null);
-  }
-
-  const checkEndGame = (boardToCheck) => {
-    return boardToCheck.every((cell) => cell !== null);
   }
 
   const updateBoard = (index) => {
