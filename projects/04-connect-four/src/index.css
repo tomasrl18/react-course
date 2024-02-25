@@ -66,3 +66,16 @@ body {
   position: relative;
   border-radius: 10px;
 }
+
+.turn .square,
+.winner .square {
+  width: 70px;
+  height: 70px;
+  pointer-events: none;
+  border-color: transparent;
+}
+
+.square.is-selected {
+  color: #fff;
+  background: #09f;
+}
