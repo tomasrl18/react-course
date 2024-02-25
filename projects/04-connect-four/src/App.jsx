@@ -14,7 +14,10 @@ function App() {
     return boardFromLocalStorage ? JSON.parse(boardFromLocalStorage) : Array(16).fill(null);
   })
 
-  const [turn, setTurn] = useState(TURNS.RED)
+  const [turn, setTurn] = useState(() => {
+    const turnFromLocalStorage = localStorage.getItem('turn');
+    return turnFromLocalStorage ?? TURNS.RED;
+  })
 
   const [winner, setWinner] = useState(null);
 
