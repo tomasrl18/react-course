@@ -22,6 +22,9 @@ function App() {
 
   const [winner, setWinner] = useState(null);
 
+  const [countRedWins, setCountRedWins] = useState(0);
+  const [countYellowWins, setCountYellowWins] = useState(0);
+
   const resetGame = () => {
     setBoard(Array(16).fill(null));
     setTurn(TURNS.RED);
@@ -46,6 +49,12 @@ function App() {
     if (newWinner) {
       confetti();
       setWinner(newWinner);
+
+      if (newWinner === TURNS.RED) {
+        setCountRedWins(countRedWins + 1);
+      } else {
+        setCountYellowWins(countYellowWins + 1);
+      }
     } else if (checkEndGame(newBoard)) {
       setWinner(false);
     }
@@ -68,12 +77,18 @@ function App() {
       </section>
 
       <section className='turn'>
-        <Square isSelected={turn === TURNS.RED}>
-          {TURNS.RED}
-        </Square>
-        <Square isSelected={turn === TURNS.YELLOW}>
-          {TURNS.YELLOW}
-        </Square>
+        <section>
+          <Square isSelected={turn === TURNS.RED}>
+            {TURNS.RED}
+          </Square>
+          <p>Wins: {countRedWins}</p>
+        </section>
+        <section>
+          <Square isSelected={turn === TURNS.YELLOW}>
+            {TURNS.YELLOW}
+          </Square>
+          <p>Wins: {countYellowWins}</p>
+        </section>
       </section>
 
       <WinnerModal resetGame={resetGame} winner={winner}/>
