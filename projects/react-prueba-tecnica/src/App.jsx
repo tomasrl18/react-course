@@ -1,24 +1,15 @@
 import { useEffect, useState } from "react"
 import './App.css'
+import { getRandomFact } from './services/facts.js'
 
-const CAT_ENDPOINT_RANDOM_FACT_URL = 'https://catfact.ninja/fact';
 const CAT_PREFIX_IMAGE_URL = 'https://cataas.com';
 
 export function App() {
     const [fact, setFact] = useState()
     const [imageUrl, setImageUrl] = useState(null)
 
-    const getRandomFact = () => {
-        fetch(CAT_ENDPOINT_RANDOM_FACT_URL)
-        .then(res => res.json())
-        .then(data => {
-            const { fact } = data
-            setFact(fact)
-        })
-    }
-
     useEffect(() => {
-        getRandomFact()
+        getRandomFact().then(setFact)
     }, [])
 
     useEffect(() => {
@@ -34,8 +25,9 @@ export function App() {
             });
     }, [fact])
 
-    const handleClick = () => {
-        getRandomFact()
+    const handleClick = async () => {
+        const newFact = await getRandomFact()
+        setFact(newFact)
     }
 
     return (
