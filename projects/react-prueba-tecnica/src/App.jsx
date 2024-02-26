@@ -1,22 +1,35 @@
 import { useEffect, useState } from "react"
 import './App.css'
-import { getRandomFact, getRandomImage } from './services/facts.js'
+import { getRandomFact } from './services/facts.js'
 
 const CAT_PREFIX_IMAGE_URL = 'https://cataas.com';
 
-export function App() {
-    const [fact, setFact] = useState()
+function useCatImage({ fact }) {
     const [imageUrl, setImageUrl] = useState(null)
-
-    useEffect(() => {
-        getRandomFact().then(newFact => setFact(newFact))
-    }, [])
 
     useEffect(() => {
         if (!fact) return
         
-        getRandomImage(fact).then(newImageUrl => setImageUrl(newImageUrl))
+        const threeFirstWord = fact.split(' ', 3).join(' ')
+
+        fetch(`https://cataas.com/cat/says/${threeFirstWord}?size=50?color=red&json=true`)
+            .then(res => res.json())
+            .then(response => {
+                const { url } = response
+                setImageUrl(url)
+            });
     }, [fact])
+
+    return { imageUrl }
+}
+
+export function App() {
+    const [fact, setFact] = useState()
+    const { imageUrl } = useCatImage({ fact })
+
+    useEffect(() => {
+        getRandomFact().then(newFact => setFact(newFact))
+    }, [])
 
     const handleClick = async () => {
         const newFact = await getRandomFact()

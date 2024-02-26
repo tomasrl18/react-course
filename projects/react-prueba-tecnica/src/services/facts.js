@@ -8,14 +8,3 @@ export const getRandomFact = () => {
         return fact;
     })
 }
-
-export const getRandomImage = (fact) => {
-    const threeFirstWord = fact.split(' ', 3).join(' ')
-
-    return fetch(`https://cataas.com/cat/says/${threeFirstWord}?size=50?color=red&json=true`)
-        .then(res => res.json())
-        .then(response => {
-            const { url } = response
-            return url
-        });
-}
