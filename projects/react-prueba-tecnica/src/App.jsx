@@ -7,21 +7,18 @@ const CAT_PREFIX_IMAGE_URL = 'https://cataas.com';
 export function App() {
     const [fact, setFact] = useState()
     const [imageUrl, setImageUrl] = useState(null)
-    const [factError, setFactError] = useState(null)
+
+    const getRandomFact = () => {
+        fetch(CAT_ENDPOINT_RANDOM_FACT_URL)
+        .then(res => res.json())
+        .then(data => {
+            const { fact } = data
+            setFact(fact)
+        })
+    }
 
     useEffect(() => {
-        fetch(CAT_ENDPOINT_RANDOM_FACT_URL)
-            .then(res => {
-                if (!res.ok) {
-                    setFactError('Failed to fetch the fact')
-                }
-
-                res.json()
-            })
-            .then(data => {
-                const { fact } = data
-                setFact(fact)
-            })
+        getRandomFact()
     }, [])
 
     useEffect(() => {
@@ -37,9 +34,16 @@ export function App() {
             });
     }, [fact])
 
+    const handleClick = () => {
+        getRandomFact()
+    }
+
     return (
         <main>
             <h1>Kittys app</h1>
+
+            <button onClick={handleClick}>Get new fact</button>
+
             {fact && <p>{fact}</p>}
             {imageUrl &&
                 <img
