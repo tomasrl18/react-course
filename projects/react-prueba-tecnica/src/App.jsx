@@ -9,7 +9,16 @@ export function App() {
     useEffect(() => {
         fetch(CAT_ENDPOINT_RANDOM_FACT_URL)
             .then(res => res.json())
-            .then(data => setFact(data.fact))
+            .then(data => {
+                const { fact } = data
+                setFact(fact)
+
+                const firstWord = fact.split(' ')[0]
+                /*
+                const firstThreeWords = fact.split(' ').slice(0, 3).join(' ')
+                const firstThreeWords = fact.split(' ', 3)
+                */
+            })
     }, [])
 
     return (
