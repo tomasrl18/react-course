@@ -15,28 +15,32 @@ export function App() {
             .then(data => {
                 const { fact } = data
                 setFact(fact)
-
-                const threeFirstWord = fact.split(' ', 3).join(' ')
-                /*
-                const firstThreeWords = fact.split(' ').slice(0, 3).join(' ')
-                */
-
-                fetch(`https://cataas.com/cat/says/${threeFirstWord}?size=50?color=red&json=true`)
-                    .then(res => res.json())
-                    .then(response => {
-                        const { url } = response
-                        setImageUrl(url)
-                    });
             })
     }, [])
+
+    useEffect(() => {
+        if (!fact) return
+        
+        const threeFirstWord = fact.split(' ', 3).join(' ')
+
+        fetch(`https://cataas.com/cat/says/${threeFirstWord}?size=50?color=red&json=true`)
+            .then(res => res.json())
+            .then(response => {
+                const { url } = response
+                setImageUrl(url)
+            });
+    }, [fact])
 
     return (
         <main>
             <h1>Kittys app</h1>
-            <section>
-                {fact && <p>{fact}</p>}
-                {imageUrl && <img src={`${CAT_PREFIX_IMAGE_URL}${imageUrl}`} alt={`Image extracted using the first three words for ${fact}`} />}
-            </section>
+            {fact && <p>{fact}</p>}
+            {imageUrl &&
+                <img
+                    src={`${CAT_PREFIX_IMAGE_URL}${imageUrl}`}
+                    alt={`Image extracted using the first three words for ${fact}`}
+                />
+            }
         </main>
     )
 }
