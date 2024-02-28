@@ -1,8 +1,7 @@
 import './App.css'
 import { useCatImage } from "./hooks/useCatImage.js";
 import { useCatFact } from "./hooks/useCatFact.js";
-
-const CAT_PREFIX_IMAGE_URL = 'https://cataas.com';
+import { RandomFact } from './components/RandomFact.jsx';
 
 export function App() {
     const { fact, refreshRandomFact } = useCatFact()
@@ -21,10 +20,12 @@ export function App() {
             {fact && <p>{fact}</p>}
             {imageUrl &&
                 <img
-                    src={`${CAT_PREFIX_IMAGE_URL}${imageUrl}`}
+                    src={imageUrl}
                     alt={`Image extracted using the first three words for ${fact}`}
                 />
             }
+
+            <RandomFact />
         </main>
     )
 }
